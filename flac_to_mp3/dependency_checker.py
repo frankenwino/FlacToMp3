@@ -22,7 +22,7 @@ class DependencyCheck:
         """dependency_check checks whether a dependency is installed.
 
         Args:
-            dependency (str): the name of the dependency e.g. ffmpeg
+            dependency (str): the name of the dependency e.g. ffmpeg.
 
         Returns:
             bool or None: True if dependency is installed, False if not and None if operating system is not supported.
@@ -61,7 +61,7 @@ class DependencyCheck:
         return self.dependency_check(dependency="lame")
 
     def flac_installed(self) -> bool or None:
-        """flac_installed checks if flac is installed
+        """flac_installed checks if flac is installed.
 
         Returns:
             bool or None: True if flac is installed, False if not and None if operating system is not supported.
@@ -69,6 +69,11 @@ class DependencyCheck:
         return self.dependency_check(dependency="flac")
 
     def all_dependencies_installed(self) -> bool:
+        """all_dependencies_installed checks if all dependencies are installed.
+
+        Returns:
+            bool: True if all dependencies are installed, False if not.
+        """        
         all_installed: bool
         dep_dict = {
             "ffmpeg": {"installed": self.ffmpeg_installed()},
