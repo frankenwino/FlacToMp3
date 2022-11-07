@@ -2,8 +2,8 @@
 Converts flac to mp3 (320 kb) using ffmpeg.
 
 # Supported OS
-* Debian
 * MacOS
+* Debian
 
 # Dependencies:
 * ffmpeg
