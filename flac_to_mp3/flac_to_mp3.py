@@ -74,6 +74,7 @@ def check_dependencies():
     if dependencies_installed is False:
         sys.exit(0)
 
+
 def dependency_check():
     d = DependencyCheck()
     if d.supported_system() is False:
@@ -81,7 +82,7 @@ def dependency_check():
         sys.exit(0)
     else:
         pass
-        
+
     if not d.all_dependencies_installed():
         print(f"Ffmpeg installed: {d.ffmpeg_installed()}")
         print(f"Lame installed: {d.lame_installed()}")
@@ -90,6 +91,7 @@ def dependency_check():
         sys.exit(0)
     else:
         pass
+
 
 root_dir = os.path.dirname(os.path.abspath(__file__))
 flac_dir = os.path.join(root_dir, "flac")

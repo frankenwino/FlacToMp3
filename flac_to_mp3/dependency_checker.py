@@ -73,7 +73,7 @@ class DependencyCheck:
 
         Returns:
             bool: True if all dependencies are installed, False if not.
-        """        
+        """
         all_installed: bool
         dep_dict = {
             "ffmpeg": {"installed": self.ffmpeg_installed()},
@@ -85,16 +85,15 @@ class DependencyCheck:
 
         for dep, dep_info in dep_dict.items():
             # print(f"{dep} installed: {dep_info['installed']}")
-            if dep_info['installed']:
+            if dep_info["installed"]:
                 dep_count += 1
-        
+
         if dep_count == dep_total:
             all_installed = True
         else:
             all_installed = False
-        
+
         return all_installed
-            
 
 
 if __name__ == "__main__":
