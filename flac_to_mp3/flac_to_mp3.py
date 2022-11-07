@@ -53,29 +53,10 @@ def get_mp3_song_path(flac_song_path):
     return mp3_song_path
 
 
-def check_dependencies():
-    dependency_list = ["flac", "lame", "ffmpeg"]
-    dependencies_installed = True
-    for dependency in dependency_list:
-        not_installed_message = "{} not installed. sudo apt install {}".format(
-            dependency, dependency
-        )
-        try:
-            output = subprocess.check_output(["which", dependency]).strip()
-            expected_output = "/usr/bin/{}".format(dependency).encode()
-            if output == expected_output:
-                print("{} installed: {}".format(dependency, str(output)))
-            else:
-                print(not_installed_message)
-                dependencies_installed = False
-        except subprocess.CalledProcessError as e:
-            print(not_installed_message)
-            dependencies_installed = False
-    if dependencies_installed is False:
-        sys.exit(0)
-
-
 def dependency_check():
+    """dependency_check checks if the operating system is supported and all
+    dependencies are installed. If not, the script exits.
+    """    
     d = DependencyCheck()
     if d.supported_system() is False:
         print(f"{d.operating_system} is not currently supported.")
