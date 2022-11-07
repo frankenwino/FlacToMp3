@@ -7,16 +7,16 @@ Requirements:
 	ffmpeg: sudo apt install ffmpeg
 	lame: sudo apt install lame
 	flac: sudo apt install flac
-	magic: pip3 install python-magic
 """
 
 import os
+import pathlib
 import sys
 import threading
 import subprocess
 import magic
 from dependency_checker import DependencyCheck
-
+import logging
 
 def worker(flac_song_path, mp3_song_path):
     flac_song = os.path.basename(flac_song_path)
@@ -36,7 +36,7 @@ def get_flag_song_list():
         for i in file_name:
             file_path = os.path.join(root, i)
             mime_type = magic.from_file(file_path, mime=True)
-            # print(f"{mime_type} - {file_path}")
+            print(f"{mime_type} - {file_path}")
             if mime_type.split("/")[0] == "audio" and mime_type.split("/")[-1].endswith(
                 "flac"
             ):
@@ -59,35 +59,50 @@ def dependency_check():
     """    
     d = DependencyCheck()
     if d.supported_system() is False:
-        print(f"{d.operating_system} is not currently supported.")
+        # print(f"{d.operating_system} is not currently supported.")
+        logger.info(f"{d.operating_system} is not currently supported.")
         sys.exit(0)
     else:
         pass
 
     if not d.all_dependencies_installed():
-        print(f"Ffmpeg installed: {d.ffmpeg_installed()}")
-        print(f"Lame installed: {d.lame_installed()}")
-        print(f"Flac installed: {d.flac_installed()}")
-        print("Not all dependencies installed. Exiting.")
+        logger.info(f"Ffmpeg installed: {d.ffmpeg_installed()}")
+        logger.info(f"Lame installed: {d.lame_installed()}")
+        logger.info(f"Flac installed: {d.flac_installed()}")
+        logger.info("Not all dependencies installed. Exiting.")
         sys.exit(0)
     else:
         pass
 
-
+# os.path directory setup. Script uses os.walk which is not available in pathlib
 root_dir = os.path.dirname(os.path.abspath(__file__))
 flac_dir = os.path.join(root_dir, "flac")
 mp3_dir = os.path.join(root_dir, "mp3")
 
+# Logging setup
+logger = logging.getLogger(__name__)
+log_file_dir = pathlib.Path(__file__).parent.joinpath("logs")
+log_file_dir.mkdir(parents=True, exist_ok=True)
+log_file_name = f"{pathlib.Path(__file__).stem}.log"
+log_file_path = log_file_dir.joinpath(log_file_name)
+FORMAT = "%(asctime)s | %(name)s | %(levelname)s | [%(module)s.%(funcName)s():line %(lineno)s] ==> %(message)s"
+logging.basicConfig(
+    encoding="utf-8",
+    level=logging.DEBUG,
+    format=FORMAT,
+    datefmt="%Y-%m-%d %H:%M:%S",
+    handlers=[logging.FileHandler(log_file_path), logging.StreamHandler(sys.stdout)],
+)
+
 if __name__ == "__main__":
     dependency_check()
-    pass
-    sys.exit(0)
+
     threads = []
     flac_song_list = get_flag_song_list()
     for flac_song_path in flac_song_list:
-        print(flac_song_path)
+        logger.debug(flac_song_path)
         mp3_song_path = get_mp3_song_path(flac_song_path)
-        print(mp3_song_path)
+        logger.debug(mp3_song_path)
         # t = threading.Thread(target=worker, args=(flac_song_path, mp3_song_path))
         # threads.append(t)
         # t.start()
