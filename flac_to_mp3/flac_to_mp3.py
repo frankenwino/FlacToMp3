@@ -1,14 +1,5 @@
 #!/usr/bin/env python3
 
-"""
-Converts flac to mp3 (320 kb) using ffmpeg
-Put flac files/folders into 'flac_folder' and run script.
-Requirements:
-	ffmpeg: sudo apt install ffmpeg
-	lame: sudo apt install lame
-	flac: sudo apt install flac
-"""
-
 import os
 import pathlib
 import sys
