@@ -32,4 +32,45 @@ def test_supported_system_macos():
     #Assert
     assert supported_system is True
     
+
+def test_ffmpeg_installed():
+    # Arrange
+    d = DependencyCheck()
+    
+    # Act
+    installed = d.ffmpeg_installed()
+    
+    # Assert
+    assert installed is True
+
+def test_lame_installed():
+    # Arrange
+    d = DependencyCheck()
+    
+    # Act
+    installed = d.lame_installed()
+    
+    # Assert
+    assert installed is True
+    
+def test_flac_installed():
+    # Arrange
+    d = DependencyCheck()
+    
+    # Act
+    installed = d.flac_installed()
+    
+    # Assert
+    assert installed is True
+
+def test_all_dependencies_installed():
+    # Arrange
+    d = DependencyCheck()
+    
+    # Act
+    all_deps_installed = d.all_dependencies_installed()
+    
+    # Assert
+    assert all_deps_installed is True
+    
     
