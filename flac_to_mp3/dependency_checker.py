@@ -30,9 +30,8 @@ class DependencyCheck:
         dependency_installed: bool
         if self.supported_system():
             try:
-                output = subprocess.check_output(["which", dependency]).strip()
-                output_split = output.decode().split("/")
-                # expected_output = "/usr/bin/{}".format(dependency).encode()
+                output = subprocess.check_output(["which", dependency]).decode().strip()
+                output_split = output.split("/")
                 if output_split[-1] == dependency:
                     dependency_installed = True
                 else:
