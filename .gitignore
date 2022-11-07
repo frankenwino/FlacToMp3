@@ -131,3 +131,4 @@ dmypy.json
 #Misc
 flac/
 mp3/
+logs/
