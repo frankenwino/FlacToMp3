@@ -1,5 +1,5 @@
-# flac_to_mp3
-Converts flac to mp3 (320 kb) using ffmpeg
+# Flac To MP3
+Converts flac to mp3 (320 kb) using ffmpeg.
 
 # Dependencies:
 * ffmpeg: sudo apt install ffmpeg
@@ -7,4 +7,5 @@ Converts flac to mp3 (320 kb) using ffmpeg
 * flac: sudo apt install flac
 
 # Usage
-Put flac files into FlacToMp3/flac_to_mp3/flac (create the flac foder if it doesn't exist) and run flac_to_mp3.py
+* Put flac files into FlacToMp3/flac_to_mp3/flac (create the flac directory if it doesn't exist) and run flac_to_mp3.py
+* mp3 files will be output to FlacToMp3/flac_to_mp3/mp3 directory.
