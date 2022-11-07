@@ -15,6 +15,7 @@ import sys
 import threading
 import subprocess
 import magic
+from dependency_checker import DependencyCheck
 
 
 def worker(flac_song_path, mp3_song_path):
@@ -73,33 +74,31 @@ def check_dependencies():
     if dependencies_installed is False:
         sys.exit(0)
 
-
-def dependencies_installed():
-    dependency_list = ["flac", "lame", "ffmpeg"]
-    dependency_check_passed = True
-    for dependency in dependency_list:
-        try:
-            output = subprocess.check_output(["which", dependency]).strip().decode()
-            if os.path.isfile(output):
-                pass
-            else:
-                print(f"{dependency} does not exist")
-                dependency_check_passed = False
-        except subprocess.CalledProcessError as e:
-            print(f"{dependency} not installed")
-            dependency_check_passed = False
-    return dependency_check_passed
-
-
-if not dependencies_installed():
-    print("Not all dependncies installed. Exiting.")
-    sys.exit(0)
+def dependency_check():
+    d = DependencyCheck()
+    if d.supported_system() is False:
+        print(f"{d.operating_system} is not currently supported.")
+        sys.exit(0)
+    else:
+        pass
+        
+    if not d.all_dependencies_installed():
+        print(f"Ffmpeg installed: {d.ffmpeg_installed()}")
+        print(f"Lame installed: {d.lame_installed()}")
+        print(f"Flac installed: {d.flac_installed()}")
+        print("Not all dependencies installed. Exiting.")
+        sys.exit(0)
+    else:
+        pass
 
 root_dir = os.path.dirname(os.path.abspath(__file__))
 flac_dir = os.path.join(root_dir, "flac")
 mp3_dir = os.path.join(root_dir, "mp3")
 
 if __name__ == "__main__":
+    dependency_check()
+    pass
+    sys.exit(0)
     threads = []
     flac_song_list = get_flag_song_list()
     for flac_song_path in flac_song_list:
