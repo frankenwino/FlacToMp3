@@ -66,6 +66,22 @@ class DependencyCheck:
             bool or None: True if flac is installed, False if not and None if operating system is not supported.
         """
         return self.dependency_check(dependency="flac")
+    
+    def cuetools_installed(self) -> bool or None:
+        """cuetools_installed checks if cuetools is installed.
+
+        Returns:
+            bool or None: True if cuetools is installed, False if not and None if operating system is not supported.
+        """
+        return self.dependency_check(dependency="cuebreakpoints")
+    
+    def shntool_installed(self) -> bool or None:
+        """shntool_installed checks if shntool is installed.
+
+        Returns:
+            bool or None: True if shntool is installed, False if not and None if operating system is not supported.
+        """
+        return self.dependency_check(dependency="shntool")
 
     def all_dependencies_installed(self) -> bool:
         """all_dependencies_installed checks if all dependencies are installed.
@@ -78,6 +94,8 @@ class DependencyCheck:
             "ffmpeg": {"installed": self.ffmpeg_installed()},
             "lame": {"installed": self.lame_installed()},
             "flac": {"installed": self.flac_installed()},
+            "cuetools": {"installed": self.cuetools_installed()},
+            "shntool": {"installed": self.shntool_installed()}
         }
         dep_total = len(dep_dict)
         dep_count = 0
@@ -97,9 +115,11 @@ class DependencyCheck:
 
 if __name__ == "__main__":
     d = DependencyCheck()
-    print(f"OS: {d.operating_system}")
+    print(f"OS: {platform.system()}")
     print(f"Supported OS: {d.supported_system()}")
     print(f"Ffmpeg installed: {d.ffmpeg_installed()}")
     print(f"Lame installed: {d.lame_installed()}")
     print(f"Flac installed: {d.flac_installed()}")
+    print(f"Cuetools installed: {d.cuetools_installed()}")
+    print(f"Shntool installed: {d.shntool_installed()}")
     print(f"All installed: {d.all_dependencies_installed()}")
