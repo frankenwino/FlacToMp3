@@ -62,6 +62,26 @@ def test_flac_installed():
     
     # Assert
     assert installed is True
+    
+def test_cuetools_installed():
+    # Arrange
+    d = DependencyCheck()
+    
+    # Act
+    installed = d.cuetools_installed()
+    
+    # Assert
+    assert installed is True
+    
+def test_shntool_installed():
+    # Arrange
+    d = DependencyCheck()
+    
+    # Act
+    installed = d.shntool_installed()
+    
+    # Assert
+    assert installed is True
 
 def test_all_dependencies_installed():
     # Arrange
